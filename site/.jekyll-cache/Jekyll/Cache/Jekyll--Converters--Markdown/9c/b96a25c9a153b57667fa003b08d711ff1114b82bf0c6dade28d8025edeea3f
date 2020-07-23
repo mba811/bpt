@@ -1,0 +1,35 @@
+I"�<div class="page-title">About</div>
+
+<p>Hello, I am David Zhang (<a href="https://crispgm.com/resume/" target="_blank">resume</a>), a.k.a crisp or crispgm on the internet. I am a software engineer of fullstack web development. I make web products, and contribute to <a href="/project.html">open source community</a>. I write <a href="/blog.html">blog posts</a> here, and post photos on <a href="https://instagram.com/crispgm" target="_blank">Instagram</a>.</p>
+
+<p>I greatly appreciate minimalism and simplicity. I enjoy photography, reading, coffee, foosball, and Japanese idol groups.</p>
+
+<style>.bmc-button img{width: 27px !important;margin-bottom: 1px !important;box-shadow: none !important;border: none !important;vertical-align: middle !important;}.bmc-button{line-height: 36px !important;height:37px !important;text-decoration: none !important;display:inline-flex !important;color:#ffffff !important;background-color:#000000 !important;border-radius: 3px !important;border: 1px solid transparent !important;padding: 0px 9px !important;font-size: 17px !important;letter-spacing:-0.08px !important;box-shadow: 0px 1px 2px rgba(190, 190, 190, 0.5) !important;-webkit-box-shadow: 0px 1px 2px 2px rgba(190, 190, 190, 0.5) !important;margin: 0 auto !important;font-family:'Lato', sans-serif !important;-webkit-box-sizing: border-box !important;box-sizing: border-box !important;-o-transition: 0.3s all linear !important;-webkit-transition: 0.3s all linear !important;-moz-transition: 0.3s all linear !important;-ms-transition: 0.3s all linear !important;transition: 0.3s all linear !important;}.bmc-button:hover, .bmc-button:active, .bmc-button:focus {-webkit-box-shadow: 0px 1px 2px 2px rgba(190, 190, 190, 0.5) !important;text-decoration: none !important;box-shadow: 0px 1px 2px 2px rgba(190, 190, 190, 0.5) !important;opacity: 0.85 !important;color:#ffffff !important;}</style>
+<link href="https://fonts.googleapis.com/css?family=Lato&amp;subset=latin,latin-ext" rel="stylesheet" />
+<p><a class="bmc-button" target="_blank" href="https://www.buymeacoffee.com/crispgm"><img src="https://bmc-cdn.nyc3.digitaloceanspaces.com/BMC-button-images/BMC-btn-logo.svg" alt="Buy me a coffee" /><span style="margin-left:5px">Buy me a coffee</span></a></p>
+
+<div class="page-title">Advocations</div>
+
+<ul>
+  <li><a href="https://act.eff.org/">Defend free speech. Fight surveillance. Support innovation.</a></li>
+  <li><a href="/page/environment-pollution-in-a-photographer-view.html">Fresh Air in China</a></li>
+  <li><a href="https://996.icu/">Against “996” Overworking</a></li>
+  <li><a href="/page/piracy-software-or-app.html">Against Piracy Software</a></li>
+  <li>Against Cyberbullying</li>
+</ul>
+
+<div class="page-title">Links</div>
+
+<ul>
+  <li><a href="https://crispgm.github.io/typings/">Crisp Typings</a></li>
+  <li><a href="https://crispgm.github.io/weekly/">Crisp Minimal Weekly</a></li>
+  <li><a href="https://crispgm.com/wiki/">Crisp Wiki</a></li>
+</ul>
+
+<div class="page-title">License</div>
+
+<ul>
+  <li>All the blogs are licensed under a <a href="http://creativecommons.org/licenses/by-nc-nd/4.0/">CC BY-NC-ND 4.0</a> license.</li>
+  <li><a href="https://github.com/crispgm/crispgm.com">Site source</a> is licensed under MIT License.</li>
+</ul>
+:ET

@@ -1,0 +1,94 @@
+I"@<p>我的博客采用了开源界内普遍采用的 Disqus 提供对博客的评论支持。它用起来很简单，只需要注册一个帐户获得一个 <code class="language-plaintext highlighter-rouge">Shortname</code> 然后在 HTML 底部加入一段代码就可以了，Disqus 会自动抓取你的 URL 信息作为 key，在页面滑动到代码所在的区域时自动载入评论。</p>
+
+<p>博客从最初到现在经历了好多个阶段：</p>
+
+<table>
+  <thead>
+    <tr>
+      <th> </th>
+      <th>生成器</th>
+      <th>域名</th>
+      <th>托管</th>
+      <th>HTTPS</th>
+      <th>评论服务</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>第一代</td>
+      <td>PHP</td>
+      <td>新浪二级域名</td>
+      <td>Sina App Engine</td>
+      <td>不支持</td>
+      <td>无</td>
+    </tr>
+    <tr>
+      <td>第二代</td>
+      <td>PHP 自写</td>
+      <td>GitHub 二级域名</td>
+      <td>GitHub Pages</td>
+      <td>不支持</td>
+      <td>Disqus</td>
+    </tr>
+    <tr>
+      <td>第三代</td>
+      <td>PHP 自写</td>
+      <td>单个一级域名</td>
+      <td>Linode VPS</td>
+      <td>不支持</td>
+      <td>Disqus</td>
+    </tr>
+    <tr>
+      <td>第四代</td>
+      <td>PHP 自写</td>
+      <td>单个一级域名</td>
+      <td>Linode VPS</td>
+      <td>支持</td>
+      <td>Disqus</td>
+    </tr>
+    <tr>
+      <td>第五代</td>
+      <td>Jekyll</td>
+      <td>多个一级域名</td>
+      <td>Linode VPS</td>
+      <td>支持</td>
+      <td>Disqus</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>其中第三、四、五代都造成了新的页面无法载入老的评论，但 Disqus 作为一个通用的第三方评论服务，提供了多种数据迁移方式帮助我轻松解决了这类问题。</p>
+
+<h3 id="url-变更">URL 变更</h3>
+
+<p>Disqus 对 URL 的识别也是区分协议、域名和 Path。因此，这些元素任意一个发生了变更，都会导致“新页面”没有了原有页面上的评论。</p>
+
+<p>Disqus 提供了三种 URL 映射来解决这类问题。分别是：</p>
+
+<ul>
+  <li>Domain Migration Tool：域名迁移工具</li>
+  <li>Upload a URL map：上传 URL 映射表</li>
+  <li>Redirect Crawler (Advanced)：重定向抓取</li>
+</ul>
+
+<p>第二代到第三代最明确，就是有了自己的域名，URL 出现了变更，故加载不到原有的评论。因此，果断采用域名迁移工具，从原来的 http://crispgm.github.io 迁移到 http://crispgm.com 上。</p>
+
+<p>第四代主要启用了 HTTPS，采用了 HTTPS 后的页面就会被视为与 HTTP 协议的页面完全不同的页面。由于域名迁移工具不支持更改协议，这就得用 URL 映射表方式。需要在本地创建一个 .csv 格式的 URL 映射表，然后上传后即可。同时由于一些页面 URL 的起初英文不太合理，所以后来优化后进行了一次变更，也采用这种方式。</p>
+
+<h3 id="多域名支持">多域名支持</h3>
+
+<p>第五代时，由于<a href="/page/new-domain-name.html">多域名</a>的启用，访问不同域名下的同一个网页，其评论是分开的，各自是一个副本。</p>
+
+<p>Disqus 官方自带的网页可视化工具已经不能支持，需要进行<a href="https://help.disqus.com/customer/portal/articles/472098-javascript-configuration-variables">程序级别的参数配置</a>，需在载入代码进行配置参数。</p>
+
+<p>于是，我修改了 Jekyll 的 <code class="language-plaintext highlighter-rouge">_layout/post.html</code> 模板中的 Disqus 片段。</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>var disqus_config = function () {
+  this.page.url = '{{ site.url }}{{ page.permalink }}';
+  this.page.identifier = '{{ page.permalink }}';
+  this.page.title = '{{ page.title }}';
+};
+</code></pre></div></div>
+
+<p>现在，问题终于彻底得到了解决。</p>
+:ET

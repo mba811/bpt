@@ -1,0 +1,24 @@
+---
+title: Legacy Posts
+permalink: /legacy_posts.html
+---
+
+<div class="page-title">Legacy Posts</div>
+<div class="archive-main">
+  <p>
+    Legacy Posts are posts that either not significant, outdated, expired, or things I just not like it anymore.
+  </p>
+  {% for post in site.posts %}
+    {% if post.type == "legacy" %}
+    <div class="archive-item">
+      <div class="archive-date">{{post.date | date:"%B %d, %Y" }}</div>
+      <div class="archive-title"><a href="{{ post.permalink }}">{{ post.title }}</a></div>
+    </div>
+    {% endif %}
+  {% endfor %}
+  <p class="archive-more">
+    <a href="/translation_posts.html">Translations</a> |
+    <a href="/legacy_posts.html"><strong>Legacy Posts</strong></a> |
+    <a href="http://crispgm.iteye.com/" target="_blank">Oldschool Blog</a>
+  </p>
+</div>

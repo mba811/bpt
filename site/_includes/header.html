@@ -1,0 +1,13 @@
+<header class="content-wrapper menu">
+  <div class="menu-home">
+    <a href="/">{{ site.title | upcase }}</a>
+  </div>
+  <div class="menu-links">
+    <div class="menu-item{% if page.title == "Blog" %}{{ " menu-active" }}{% endif %}">
+      <a href="/blog.html">Blog</a>
+    </div>
+    <div class="menu-item{% if page.title == "About" %}{{ " menu-active" }}{% endif %}">
+      <a href="/about.html">About</a>
+    </div>
+  </div>
+</header>

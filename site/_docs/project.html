@@ -1,0 +1,44 @@
+---
+title: Project
+permalink: /project.html
+---
+<div class="page-title">Project</div>
+
+<div id="project" class="things">
+  {% for project in site.data.projects %}
+  <div class="things-item">
+    <div class="things-title">
+      {{ project.name }}
+      {% if project.contributed == true %}
+        <sup id="fnref:asterix"><a href="#fn:asterix" class="footnote">*</a></sup>
+      {% endif %}
+    </div>
+    <div class="things-link">
+      {% for link in project.links %}
+      <div>
+        <a href="{{ link.href }}">{{ link.text }}</a>
+      </div>
+      {% endfor %}
+    </div>
+    <div class="things-list">
+      <div>
+        {{ project.description }}
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+<p>
+  <ul>
+    <li id="fn:asterix">
+      Projects with asterix "*" is contributed. <a href="#fnref:asterix" class="reversefootnote">&#8617;</a>
+    </li>
+    <li>
+      For more information about my projects, visit on my <a href="https://github.com/crispgm">GitHub</a>.
+    </li>
+    <li>
+      For archived projects, visit <a href="https://crisp-archive.github.io/">Crisp Archive</a>.
+    </li>
+  </ul>
+</p>

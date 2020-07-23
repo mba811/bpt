@@ -1,0 +1,66 @@
+// Theme of Crisp Blog
+// Copyright (c) David Zhang, 2020
+
+footer {
+  border-top: 1px dotted $dark-3;
+  font-size: 1rem;
+  margin-top: 1.2rem;
+  overflow: hidden;
+  text-align: center;
+}
+
+.contact {
+  display: flex;
+  font-size: 1rem;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  padding: .8rem 0 0;
+  text-align: left;
+
+  .contact-copyright {
+    a {
+      color: $dark-5;
+    }
+  }
+
+  .contact-links {
+    float: right;
+
+    a {
+      color: $dark-9;
+      padding-left: .8rem;
+      text-decoration: none;
+
+      &:first-of-type {
+        padding-left: .2rem;
+      }
+    }
+
+    &:hover {
+      a {
+        color: $dark-5;
+
+        &:hover {
+          color: $dark-9;
+        }
+      }
+    }
+  }
+}
+
+@include mobile {
+  .contact {
+    display: block;
+    padding: 1.2rem 0 0;
+    text-align: center;
+
+    .contact-links {
+      float: none;
+      margin: .4rem 0;
+
+      &:first {
+        padding: 0;
+      }
+    }
+  }
+}

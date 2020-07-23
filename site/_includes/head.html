@@ -1,0 +1,22 @@
+<head>
+  <meta charset="UTF-8">
+  <meta name="description" content="{{ site.description }}"/>
+  <title>{{ page.title }} | {{ site.title }}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="canonical" href="{{ site.url }}{{ page.permalink }}">
+  {% for alt_url in site.alt_url %}
+  <link rel="alternate" href="{{ alt_url }}{{ page.permalink }}">
+  {% endfor %}
+  <link rel="alternate" href="{{ site.url }}/feed.xml" type="application/rss+xml" title="RSS">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Sans|Fira+Mono&display=swap">
+  <link rel="icon" type="image/x-icon" href="/image/logo.png">
+  {% if page.font_awesome != false %}
+  <link rel="stylesheet" href="{{ site.assets }}/css/font.css?v={{ site.time | date: "%s" }}">
+  {% endif %}
+  {% if page.syntax_highlight != false %}
+  <link rel="stylesheet" href="{{ site.assets }}/css/nord.css">
+  {% endif %}
+  <link rel="stylesheet" href="{{ site.assets }}/css/style.css">
+  <script src="https://use.typekit.net/syr2mmc.js"></script>
+  <script>try{Typekit.load({ async: true });}catch(e){}</script>
+</head>

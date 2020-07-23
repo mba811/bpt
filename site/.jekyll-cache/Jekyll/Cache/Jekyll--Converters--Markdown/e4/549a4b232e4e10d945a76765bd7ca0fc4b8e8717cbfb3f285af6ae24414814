@@ -1,0 +1,580 @@
+I"��<p>很久以前，本人的个人博客是 PHP 写的简单页面，实时转换 Markdown。后来，为了简单，用 PHP 写了一个静态博客转换器。虽用起来还比较舒服，但通用性太差了。于是转向 GitHub Pages 官方支持的 Jekyll，没想到只花了20分钟就完成了迁移，开发体验颇好。深入使用和参与了许久后，决定写一篇 Jekyll 相关的 Tips 的文章，仅供大家参考。</p>
+
+<h2 id="简介">简介</h2>
+
+<h4 id="什么是-jekyll">什么是 Jekyll</h4>
+
+<p><a href="https://jekyllrb.com/">Jekyll</a> 是一个简单的，博客感知的，静态网站生成器。可以认为，Jekyll 是一个基于文件的内容管理系统（CMS）。它使用 Ruby 编写，通过 Markdown 和 Liquid 模板生成内容。</p>
+
+<p>Jekyll 最初由 GitHub co-founder、前首席执行官 <a href="https://github.com/mojombo">Tom Preston-Werner</a> 创立。</p>
+
+<p>目前，Jekyll 的维护者是 <a href="https://github.com/parkr">Parker Moore</a>，他本人也于<a href="https://byparker.com/blog/2016/joining-github/">2016年初加入了 GitHub</a>。</p>
+
+<h4 id="安装">安装</h4>
+
+<p>首先，你得有 Ruby。对于 Mac 用户，可以使用 Homebrew 安装。</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ brew install ruby
+</code></pre></div></div>
+
+<p>然后：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ gem install jekyll
+</code></pre></div></div>
+
+<h4 id="gem-安装不上或者很慢怎么办">Gem 安装不上或者很慢怎么办？</h4>
+
+<p>RubyGems 是一个优秀的包管理系统，但再优秀也扛不住墙和距离，所以一般情况下，中国大陆的用户需要更换 RubyGems 的源。</p>
+
+<p>建议更换成 Ruby-China 的源，参考 <a href="https://gems.ruby-china.com/">https://gems.ruby-china.com/</a>。</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ gem sources --add https://gems.ruby-china.com/ --remove https://rubygems.org/
+</code></pre></div></div>
+
+<h4 id="mac-osx-el-capitan-安装失败">Mac OSX El Capitan 安装失败</h4>
+
+<p>从 Mac OSX El Capitan 开始，Apple 采取了一个叫 SIP 的东西保护系统文件夹，导致 <code class="language-plaintext highlighter-rouge">/usr/bin</code> 等文件夹无法写入。因此需要更换安装路径。</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ gem install -n /usr/local/bin jekyll
+</code></pre></div></div>
+
+<p>详见 <a href="https://jekyllrb.com/docs/troubleshooting/#jekyll-amp-mac-os-x-1011">https://jekyllrb.com/docs/troubleshooting/#jekyll-amp-mac-os-x-1011</a></p>
+
+<h4 id="bundler">Bundler</h4>
+
+<p>Jekyll 3.3.0 之后开始采用 Bundler 方式运行。安装时，需要同时安装 Bundler：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ gem install jekyll bundler
+</code></pre></div></div>
+
+<p>所以所有命令可能也需要使用 Bundler：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ bundle exec jekyll serve
+</code></pre></div></div>
+
+<h2 id="命令">命令</h2>
+
+<h4 id="使用-jekyll-new-创建新站点">使用 <code class="language-plaintext highlighter-rouge">jekyll new</code> 创建新站点</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ jekyll new my-jekyll-site
+</code></pre></div></div>
+
+<p>也可以：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ mkdir my-jekyll-site
+$ cd my-jekyll-site
+$ jekyll new .
+</code></pre></div></div>
+
+<h4 id="使用-jekyll-serve-在本地运行站点">使用 <code class="language-plaintext highlighter-rouge">jekyll serve</code> 在本地运行站点</h4>
+
+<p>以下三种使用方式是等价的：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ jekyll serve
+$ jekyll server
+$ jekyll s
+</code></pre></div></div>
+
+<p>通过 <code class="language-plaintext highlighter-rouge">http://localhost:4000</code> 进行访问。</p>
+
+<h4 id="使用-jekyll-build-生成站点">使用 <code class="language-plaintext highlighter-rouge">jekyll build</code> 生成站点</h4>
+
+<p>以下两种使用方式是等价的：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ jekyll build
+$ jekyll b
+</code></pre></div></div>
+
+<p>通过 <code class="language-plaintext highlighter-rouge">--destination</code> 指定目标路径：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ jekyll build --destination=/path/to/site
+</code></pre></div></div>
+
+<h4 id="使用-jekyll-new-theme-创建主题">使用 <code class="language-plaintext highlighter-rouge">jekyll new-theme</code> 创建主题</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ jekyll new-theme my-theme
+</code></pre></div></div>
+
+<h2 id="基础">基础</h2>
+
+<h4 id="目录结构">目录结构</h4>
+
+<p>一个基本的 Jekyll 站点目录结构：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>.
+├── _config.yml
+├── _data
+|   └── members.yml
+├── _drafts
+|   ├── begin-with-the-crazy-ideas.md
+|   └── on-simplicity-in-technology.md
+├── _includes
+|   ├── footer.html
+|   └── header.html
+├── _layouts
+|   ├── default.html
+|   └── post.html
+├── _posts
+|   ├── 2007-10-29-why-every-programmer-should-play-nethack.md
+|   └── 2009-04-26-barcamp-boston-4-roundup.md
+├── _sass
+|   ├── _base.scss
+|   └── _layout.scss
+├── _site
+├── .jekyll-metadata
+└── index.html # 也可以是 index.md
+</code></pre></div></div>
+<ul>
+  <li>_config.yml
+    <ul>
+      <li>Jekyll 站点的总配置文件，有很多选项也可以通过命令行方式指定。</li>
+    </ul>
+  </li>
+  <li>_drafts
+    <ul>
+      <li>未发布的草稿，文件名不需要带有日期。</li>
+    </ul>
+  </li>
+  <li>_includes
+    <ul>
+      <li>代码片段，可以通过 <code class="language-plaintext highlighter-rouge">include</code> 进行引用。</li>
+    </ul>
+  </li>
+  <li>_layouts
+    <ul>
+      <li>布局。布局文件可以被继承，<code class="language-plaintext highlighter-rouge">{{ content }}</code> 用于表示被继承者的内容。</li>
+    </ul>
+  </li>
+  <li>_posts
+    <ul>
+      <li>文件，命名需要以日期开头：如 <code class="language-plaintext highlighter-rouge">2016-12-01-my-article.md</code>。</li>
+    </ul>
+  </li>
+  <li>_sass
+    <ul>
+      <li>sass 文件，可以通过插件完成编译。也可以选择引入原生 CSS，或者 Less 等。</li>
+    </ul>
+  </li>
+  <li>_site
+    <ul>
+      <li>目标文件，建议加入到 <code class="language-plaintext highlighter-rouge">.gitignore</code> 中。</li>
+    </ul>
+  </li>
+  <li>index.html/index.md
+    <ul>
+      <li>首页</li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="_configyml">_config.yml</h4>
+
+<p><code class="language-plaintext highlighter-rouge">_config.yml</code> 是整个站点的整体配置，以下是所有配置项和默认值：</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Where things are</span>
+<span class="na">source</span><span class="pi">:</span>       <span class="s">.</span>
+<span class="na">destination</span><span class="pi">:</span>  <span class="s">./_site</span>
+<span class="na">plugins_dir</span><span class="pi">:</span>  <span class="s">_plugins</span>
+<span class="na">layouts_dir</span><span class="pi">:</span>  <span class="s">_layouts</span>
+<span class="na">data_dir</span><span class="pi">:</span>     <span class="s">_data</span>
+<span class="na">includes_dir</span><span class="pi">:</span> <span class="s">_includes</span>
+<span class="na">collections</span><span class="pi">:</span>
+  <span class="na">posts</span><span class="pi">:</span>
+    <span class="na">output</span><span class="pi">:</span>   <span class="no">true</span>
+
+<span class="c1"># Handling Reading</span>
+<span class="na">safe</span><span class="pi">:</span>         <span class="no">false</span>
+<span class="na">include</span><span class="pi">:</span>      <span class="pi">[</span><span class="s2">"</span><span class="s">.htaccess"</span><span class="pi">]</span>
+<span class="na">exclude</span><span class="pi">:</span>      <span class="pi">[</span><span class="s2">"</span><span class="s">node_modules"</span><span class="pi">,</span> <span class="s2">"</span><span class="s">vendor/bundle/"</span><span class="pi">,</span> <span class="s2">"</span><span class="s">vendor/cache/"</span><span class="pi">,</span> <span class="s2">"</span><span class="s">vendor/gems/"</span><span class="pi">,</span> <span class="s2">"</span><span class="s">vendor/ruby/"</span><span class="pi">]</span>
+<span class="na">keep_files</span><span class="pi">:</span>   <span class="pi">[</span><span class="s2">"</span><span class="s">.git"</span><span class="pi">,</span> <span class="s2">"</span><span class="s">.svn"</span><span class="pi">]</span>
+<span class="na">encoding</span><span class="pi">:</span>     <span class="s2">"</span><span class="s">utf-8"</span>
+<span class="na">markdown_ext</span><span class="pi">:</span> <span class="s2">"</span><span class="s">markdown,mkdown,mkdn,mkd,md"</span>
+
+<span class="c1"># Filtering Content</span>
+<span class="na">show_drafts</span><span class="pi">:</span> <span class="no">null</span>
+<span class="na">limit_posts</span><span class="pi">:</span> <span class="m">0</span>
+<span class="na">future</span><span class="pi">:</span>      <span class="no">false</span>
+<span class="na">unpublished</span><span class="pi">:</span> <span class="no">false</span>
+
+<span class="c1"># Plugins</span>
+<span class="na">whitelist</span><span class="pi">:</span> <span class="pi">[]</span>
+<span class="na">gems</span><span class="pi">:</span>      <span class="pi">[]</span>
+
+<span class="c1"># Conversion</span>
+<span class="na">markdown</span><span class="pi">:</span>    <span class="s">kramdown</span>
+<span class="na">highlighter</span><span class="pi">:</span> <span class="s">rouge</span>
+<span class="na">lsi</span><span class="pi">:</span>         <span class="no">false</span>
+<span class="na">excerpt_separator</span><span class="pi">:</span> <span class="s2">"</span><span class="se">\n\n</span><span class="s">"</span>
+<span class="na">incremental</span><span class="pi">:</span> <span class="no">false</span>
+
+<span class="c1"># Serving</span>
+<span class="na">detach</span><span class="pi">:</span>  <span class="no">false</span>
+<span class="na">port</span><span class="pi">:</span>    <span class="m">4000</span>
+<span class="na">host</span><span class="pi">:</span>    <span class="s">127.0.0.1</span>
+<span class="na">baseurl</span><span class="pi">:</span> <span class="s2">"</span><span class="s">"</span> <span class="c1"># does not include hostname</span>
+<span class="na">show_dir_listing</span><span class="pi">:</span> <span class="no">false</span>
+
+<span class="c1"># Outputting</span>
+<span class="na">permalink</span><span class="pi">:</span>     <span class="s">date</span>
+<span class="na">paginate_path</span><span class="pi">:</span> <span class="s">/page:num</span>
+<span class="na">timezone</span><span class="pi">:</span>      <span class="no">null</span>
+
+<span class="na">quiet</span><span class="pi">:</span>    <span class="no">false</span>
+<span class="na">verbose</span><span class="pi">:</span>  <span class="no">false</span>
+<span class="na">defaults</span><span class="pi">:</span> <span class="pi">[]</span>
+
+<span class="na">liquid</span><span class="pi">:</span>
+  <span class="na">error_mode</span><span class="pi">:</span> <span class="s">warn</span>
+
+<span class="c1"># Markdown Processors</span>
+<span class="na">rdiscount</span><span class="pi">:</span>
+  <span class="na">extensions</span><span class="pi">:</span> <span class="pi">[]</span>
+
+<span class="na">redcarpet</span><span class="pi">:</span>
+  <span class="na">extensions</span><span class="pi">:</span> <span class="pi">[]</span>
+
+<span class="na">kramdown</span><span class="pi">:</span>
+  <span class="na">auto_ids</span><span class="pi">:</span>       <span class="no">true</span>
+  <span class="na">footnote_nr</span><span class="pi">:</span>    <span class="m">1</span>
+  <span class="na">entity_output</span><span class="pi">:</span>  <span class="s">as_char</span>
+  <span class="na">toc_levels</span><span class="pi">:</span>     <span class="s">1..6</span>
+  <span class="na">smart_quotes</span><span class="pi">:</span>   <span class="s">lsquo,rsquo,ldquo,rdquo</span>
+  <span class="na">input</span><span class="pi">:</span>          <span class="s">GFM</span>
+  <span class="na">hard_wrap</span><span class="pi">:</span>      <span class="no">false</span>
+  <span class="na">footnote_nr</span><span class="pi">:</span>    <span class="m">1</span>
+</code></pre></div></div>
+
+<h4 id="front-matter">Front Matter</h4>
+
+<p>Jekyll 整个站点的配置是站点根目录下的 <code class="language-plaintext highlighter-rouge">_config.yml</code> 文件，而 <code class="language-plaintext highlighter-rouge">_layout</code>, <code class="language-plaintext highlighter-rouge">_posts</code> 等目录下的文件中也可以有自己的变量。文件头部的 <code class="language-plaintext highlighter-rouge">yaml</code> 配置被称作 Front Matter。</p>
+
+<h4 id="front-matter-默认值">Front Matter 默认值</h4>
+
+<p>可以使用 <code class="language-plaintext highlighter-rouge">defaults</code> 设置一个路径下 Front Matter 默认值。</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">defaults</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">scope</span><span class="pi">:</span>
+      <span class="na">path</span><span class="pi">:</span> <span class="s2">"</span><span class="s">"</span>
+      <span class="na">type</span><span class="pi">:</span> <span class="s">weekly</span>
+    <span class="na">values</span><span class="pi">:</span>
+      <span class="na">layout</span><span class="pi">:</span> <span class="s">weekly</span>
+      <span class="na">title</span><span class="pi">:</span> <span class="s">技术周刊</span>
+</code></pre></div></div>
+
+<h4 id="忽略文件">忽略文件</h4>
+
+<p><code class="language-plaintext highlighter-rouge">exclude</code> 用于忽略文件或文件夹，其中 <code class="language-plaintext highlighter-rouge">_config.yml</code> 和以<code class="language-plaintext highlighter-rouge">.</code>开头的文件或文件夹都会被自动忽略。后续版本，<code class="language-plaintext highlighter-rouge">node_modules</code> 等文件夹也被隐式忽略了（参考 _config.yml 章节）。</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">exclude</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="s">Gemfile</span>
+  <span class="pi">-</span> <span class="s">Gemfile.lock</span>
+  <span class="pi">-</span> <span class="s">README.md</span>
+  <span class="pi">-</span> <span class="s">LICENSE</span>
+</code></pre></div></div>
+
+<h4 id="分页">分页</h4>
+
+<p>Jekyll 没有内置分页功能，而是提供了一个分页插件 <code class="language-plaintext highlighter-rouge">jekyll-paginate</code>。<code class="language-plaintext highlighter-rouge">jekyll-paginate</code> 仅在特定的默认条件下生效，如果你对网站结构有自己的一套风格，<code class="language-plaintext highlighter-rouge">jekyll-paginate</code> 可能是无法满足需求的。</p>
+
+<p>限制如下：</p>
+
+<ul>
+  <li>分页功能必须在 HTML 格式文件中调用，如：<code class="language-plaintext highlighter-rouge">index.html</code></li>
+  <li>必须使用默认的链接格式 <code class="language-plaintext highlighter-rouge">permalink</code></li>
+</ul>
+
+<p>同时，jekyll-paginate 官方已经不再活跃开发，非官方的 <a href="https://github.com/sverrirs/jekyll-paginate-v2">jekyll-paginate-v2</a> 在兼容的情况下还在活跃状态，更建议使用。</p>
+
+<p>如果想继续使用，请详细阅读 <a href="http://jekyllrb.com/docs/pagination/">http://jekyllrb.com/docs/pagination/</a>。这是一个复杂的问题！</p>
+
+<h4 id="文章摘要">文章摘要</h4>
+
+<p>Jekyll 提供了文章摘要摘取功能，通过 <code class="language-plaintext highlighter-rouge">post.excerpt</code> 就可以获得摘要内容。</p>
+
+<p>我们也可以设置摘取摘要的分隔符：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>excerpt_separator: &lt;!--more--&gt;
+</code></pre></div></div>
+
+<h4 id="评论">评论</h4>
+
+<p>由于是静态站点，我们没法内建评论系统，因此需要引入一些纯前端就可以使用的评论系统。国外推荐：<a href="https://disqus.com/">disqus</a>，国内推荐：<a href="http://duoshuo.com/">duoshuo</a>。</p>
+
+<h4 id="page">Page</h4>
+
+<p>可以认为，不在 <code class="language-plaintext highlighter-rouge">_post</code> 目录下的页面都是 Page 而不是 Post，其它方面区别不大。</p>
+
+<h4 id="collection">Collection</h4>
+
+<p>并不是每个页面都是独立“页面”和以日期为顺序的“博文”，因此 Jekyll 引入了 Collection。Collection 可以根据路径定义一类具有相同属性的页面集合。Collection 也可以通过 Front Matter 设定默认值。</p>
+
+<h4 id="data">Data</h4>
+
+<p>Data 相当于动态页面中的数据库，Jekyll Data 支持 <code class="language-plaintext highlighter-rouge">yaml</code>, <code class="language-plaintext highlighter-rouge">json</code>, <code class="language-plaintext highlighter-rouge">CSV</code> 三种格式，可以通过 <code class="language-plaintext highlighter-rouge">site.data</code> 直接访问。</p>
+
+<p>例如：</p>
+
+<p>团队成员有 Fa, Li, Zhang 三人，于是我们在默认路径 <code class="language-plaintext highlighter-rouge">_data</code> 创建一个数据文件 <code class="language-plaintext highlighter-rouge">member.yml</code>：</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Fa</span>
+<span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Li</span>
+<span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Zhang</span>
+</code></pre></div></div>
+
+<p>在页面中显示团队成员列表：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{% for member in site.data.member %}
+&lt;ul&gt;
+  &lt;li&gt;{{ member.name }}&lt;/li&gt;
+&lt;/ul&gt;
+{% endfor %}
+</code></pre></div></div>
+
+<h2 id="liquid-模板">Liquid 模板</h2>
+
+<h4 id="什么是-liquid">什么是 Liquid?</h4>
+
+<p>Liquid 是一个开源模版语言，由电商公司 Shopify 实现，用 Ruby 编写。Shopify 自己使用 Liquid 来构建自己电商网站模板生态。</p>
+
+<p>详细文档请参考 <a href="https://shopify.github.io/liquid/">https://shopify.github.io/liquid/</a>。</p>
+
+<p>Jekyll 使用 Liquid 作为模版引擎，构建页面。</p>
+
+<h4 id="变量">变量</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;title&gt;
+{{ page.title }}
+&lt;/title&gt;
+</code></pre></div></div>
+
+<p>其中，Jekyll 预设了 <code class="language-plaintext highlighter-rouge">site</code>, <code class="language-plaintext highlighter-rouge">layout</code>, <code class="language-plaintext highlighter-rouge">page</code>, <code class="language-plaintext highlighter-rouge">content</code> 四个全局变量。</p>
+
+<h4 id="逻辑判断">逻辑判断</h4>
+
+<p>Liquid 的逻辑判断跟 Ruby 完全一致。</p>
+
+<ul>
+  <li>常见语言中的 <code class="language-plaintext highlighter-rouge">if</code>, <code class="language-plaintext highlighter-rouge">else if</code>, <code class="language-plaintext highlighter-rouge">else</code> 在 Liquid 中的对应是 <code class="language-plaintext highlighter-rouge">if</code>, <code class="language-plaintext highlighter-rouge">elsif</code>, <code class="language-plaintext highlighter-rouge">else</code>。同时，Liquid 也可以使用 Ruby 特有的 <code class="language-plaintext highlighter-rouge">unless</code>。</li>
+  <li>常见语言中的 <code class="language-plaintext highlighter-rouge">switch</code>, <code class="language-plaintext highlighter-rouge">case</code> 在 Liquid 中的对应是 <code class="language-plaintext highlighter-rouge">case</code>, <code class="language-plaintext highlighter-rouge">when</code>。</li>
+</ul>
+
+<p>为了简单，只以 <code class="language-plaintext highlighter-rouge">if</code> 为例：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{% if page.syntax_highlight != 'false' %}
+&lt;link rel="stylesheet" href="{{ site.assets }}/css/zenburn.css"&gt;
+{% endif %}
+</code></pre></div></div>
+
+<h4 id="遍历">遍历</h4>
+
+<p>在 Liquid 中可以通过 <code class="language-plaintext highlighter-rouge">for</code> <code class="language-plaintext highlighter-rouge">in</code> 语法遍历数组，并且支持一般语言循环中的 <code class="language-plaintext highlighter-rouge">continue</code> 和 <code class="language-plaintext highlighter-rouge">break</code>。</p>
+
+<p>除此之外，还可以使用 <code class="language-plaintext highlighter-rouge">offset</code> 和 <code class="language-plaintext highlighter-rouge">limit</code> 控制遍历范围，通过 <code class="language-plaintext highlighter-rouge">reversed</code> 进行倒序。</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{% for post in site.posts reversed %}
+&lt;a href="{{ post.permalink }}"&gt;{{ post.title }}&lt;/a&gt;
+{% endfor %}
+</code></pre></div></div>
+
+<p>详见 <a href="https://shopify.github.io/liquid/tags/iteration/">https://shopify.github.io/liquid/tags/iteration/</a></p>
+
+<h4 id="赋值">赋值</h4>
+
+<p>使用 <code class="language-plaintext highlighter-rouge">assign</code> 进行赋值：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{% assign my_variable = false %}
+</code></pre></div></div>
+
+<p>使用 <code class="language-plaintext highlighter-rouge">capture</code> 进行捕捉赋值：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{% capture my_variable %}
+I am being captured.
+{% endcapture %}
+</code></pre></div></div>
+
+<h4 id="liquid-filters">Liquid Filters</h4>
+
+<p>Liquid Filters 是一种针对 Liquid 中变量的过滤器，语法是：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{{ var | filter: "param" }}
+</code></pre></div></div>
+
+<p>除去 Liquid 自身丰富的过滤器之外，Jekyll 还额外扩展了一些实用的：</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">cgi_escape</code> <code class="language-plaintext highlighter-rouge">url_escape</code> <code class="language-plaintext highlighter-rouge">xml_escape</code>
+    <ul>
+      <li>对变量进行相应的 escape</li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">markdownify</code> <code class="language-plaintext highlighter-rouge">scssify</code> <code class="language-plaintext highlighter-rouge">sassify</code> <code class="language-plaintext highlighter-rouge">jsonify</code>
+    <ul>
+      <li>对变量内容的格式转换</li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">where</code> <code class="language-plaintext highlighter-rouge">where_exp</code> <code class="language-plaintext highlighter-rouge">group_by</code> <code class="language-plaintext highlighter-rouge">sort</code>
+    <ul>
+      <li>对变量数据的查询排序等操作</li>
+    </ul>
+  </li>
+</ul>
+
+<p>详见 <a href="http://jekyllrb.com/docs/templates/#filters">http://jekyllrb.com/docs/templates/#filters</a></p>
+
+<h2 id="插件">插件</h2>
+
+<h4 id="插件简介">插件简介</h4>
+
+<p>Jekyll 支持使用插件进行扩展，插件的类型分为：Generators、Converters、Commands、Hooks、Liquid Tag、Liquid Filter 等。</p>
+
+<p>如果希望开发插件，请参考 <a href="http://jekyllrb.com/docs/plugins/">http://jekyllrb.com/docs/plugins/</a></p>
+
+<h4 id="使用插件">使用插件</h4>
+
+<ol>
+  <li>
+    <p>基于 Gem 的方式</p>
+
+    <p>对于已经发布到 RubyGems 的插件，推荐使用这种方式。只需要在 <code class="language-plaintext highlighter-rouge">_config.yml</code> 中 <code class="language-plaintext highlighter-rouge">gems</code> 字段加入相应插件名称即可。Jekyll 3.5.0 版之后请使用 <code class="language-plaintext highlighter-rouge">plugins</code> 字段配置。</p>
+  </li>
+  <li>
+    <p>基于本地文件</p>
+
+    <p>对于没有发布的插件，可以在 <code class="language-plaintext highlighter-rouge">_plugins</code> 文件夹中直接引入 <code class="language-plaintext highlighter-rouge">*.rb</code> Ruby 源文件。</p>
+  </li>
+</ol>
+
+<h2 id="常用插件">常用插件</h2>
+
+<h4 id="jekyll-watch">Jekyll Watch</h4>
+
+<p>Jekyll “必备”的插件，因为这是 Jekyll 程序的依赖，只是因为程序结构设计被剥离成了插件。它在本地预览时，提供文件变更的自动更新，让我们每次刷新都能自动看到最新的内容。</p>
+
+<p>Jekyll Watch 是自动开启的：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ jekyll serve --watch
+</code></pre></div></div>
+
+<h4 id="jekyll-compose">Jekyll Compose</h4>
+
+<p>安装了 <a href="https://github.com/jekyll/jekyll-compose">Jekyll Compose</a> 后，Jekyll 会额外提供一些命令，便于发布管理博文。</p>
+
+<p>创建草稿：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ jekyll draft
+</code></pre></div></div>
+
+<p>创建新博客：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ jekyll post
+</code></pre></div></div>
+
+<p>创建新博客：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ jekyll page
+</code></pre></div></div>
+
+<p>发布草稿：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ jekyll publish
+</code></pre></div></div>
+
+<p>撤销发布：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ jekyll unpublish
+</code></pre></div></div>
+
+<h4 id="jekyll-admin">Jekyll Admin</h4>
+
+<p><a href="https://github.com/jekyll/jekyll-admin">Jekyll Admin</a> 是一个 CMS 风格的图形化后台管理插件，可以在本地给用户提供服务。</p>
+
+<p><img src="https://github.com/jekyll/jekyll-admin/raw/master/screenshot.png" alt="" /></p>
+
+<h4 id="jekyll-seo-tag">Jekyll SEO Tag</h4>
+
+<p><a href="https://github.com/jekyll/jekyll-seo-tag">Jekyll SEO Tag</a> 帮你生成一大堆 Meta 标签。</p>
+
+<h4 id="jemoji">Jemoji</h4>
+
+<p>你可以通过 <a href="https://github.com/jekyll/jemoji">Jemoji</a> 在 Jekyll 生成的网站中，加入自己 Emoji 表情。</p>
+
+<p>Emoji 语法采用 GitHub 的语法风格。</p>
+
+<h4 id="jekyll-mentions">Jekyll Mentions</h4>
+
+<p><a href="https://github.com/jekyll/jekyll-mentions">Jekyll Mentions</a> 允许你在文章中直接“@” GitHub 或其它网站用户。</p>
+
+<h4 id="jekyll-feed">Jekyll Feed</h4>
+
+<p>你可以通过 <a href="https://github.com/jekyll/jekyll-feed">Jekyll Feed</a> 在 Jekyll 生成的网站中，生成 RSS 源。</p>
+
+<h4 id="jekyll-import">Jekyll Import</h4>
+
+<p><a href="https://github.com/jekyll/jekyll-import">Jekyll Import</a> 支持从一些国外的主流站点导入博文，如 Blogger, WordPress 和 Tumblr 等，同样也支持 RSS 和 CSV 等数据格式导入。</p>
+
+<h4 id="jekyll-archives">Jekyll Archives</h4>
+
+<p><a href="https://github.com/jekyll/jekyll-archives">Jekyll Archives</a> 用于生成带标签和分类的『存档』页面。</p>
+
+<h4 id="jekyll-redirect-from">Jekyll Redirect From</h4>
+
+<p><a href="https://github.com/jekyll/jekyll-redirect-from">Jekyll Redirect From</a> 提供页面跳转功能，比较简单，也可以自行通过 JavaScript 实现。</p>
+
+<h2 id="github-pages">GitHub Pages</h2>
+
+<h4 id="创建个人主页">创建个人主页</h4>
+
+<p>创建一个名为 <code class="language-plaintext highlighter-rouge">your-github-username.github.io</code> 的 Repo，<code class="language-plaintext highlighter-rouge">your-github-username</code> 是你的用户名。</p>
+
+<p>只需在 Repo 中设置 GitHub Pages 的 Source，就可以开启 GitHub Pages，支持 <code class="language-plaintext highlighter-rouge">master</code>, <code class="language-plaintext highlighter-rouge">gh-pages</code>, <code class="language-plaintext highlighter-rouge">master</code> 中 <code class="language-plaintext highlighter-rouge">/docs</code> 文件夹三种 Source。</p>
+
+<p><img src="http://localhost:4000/image/github-pages-source.jpg" alt="" /></p>
+
+<h4 id="在-github-pages-只可以使用部分插件">在 GitHub Pages 只可以使用部分插件</h4>
+
+<p>由于安全性等原因的考虑，在 GitHub Pages 平台上只能使用白名单中的 7 个 Jekyll 插件。它们分别是：Jekyll Sitemap, Jekyll SEO Tag, github-metadata, Jekyll Feed, Jekyll Redirect From, Jemoji 和 Jekyll Mentions。</p>
+
+<p>详见 <a href="https://help.github.com/articles/adding-jekyll-plugins-to-a-github-pages-site/">https://help.github.com/articles/adding-jekyll-plugins-to-a-github-pages-site/</a>。</p>
+
+<h4 id="github-pages-上的-jekyll-只支持-kramdown">GitHub Pages 上的 Jekyll 只支持 kramdown</h4>
+
+<p>从 2016 年 5 月 1 日起，GitHub Pages 只支持 kramdown 作为 Markdown 引擎。</p>
+
+<p>详见 <a href="https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0">https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0</a>。</p>
+
+<h4 id="在根目录下创建-nojekyll-文件可以跳过-jekyll-解析">在根目录下创建 <code class="language-plaintext highlighter-rouge">.nojekyll</code> 文件可以跳过 Jekyll 解析</h4>
+
+<p>GitHub Pages 支持 Jekyll 或者原始文件。最初 GitHub Pages 只支持 Jekyll，后来 GitHub 允许在 Repo 根目录下添加 <code class="language-plaintext highlighter-rouge">.nojekyll</code> 跳过解析。</p>
+
+<p>详见 <a href="https://github.com/blog/572-bypassing-jekyll-on-github-pages">https://github.com/blog/572-bypassing-jekyll-on-github-pages</a>。</p>
+
+<h4 id="你可以使用自己的域名">你可以使用自己的域名</h4>
+
+<p>在 Source 的根路径下，创建 <code class="language-plaintext highlighter-rouge">CNAME</code> 写入域名，然后把 DNS 解析到 GitHub Pages 的 IP：<code class="language-plaintext highlighter-rouge">192.30.252.153</code>和<code class="language-plaintext highlighter-rouge">192.30.252.154</code>。</p>
+
+<p>详见 <a href="https://help.github.com/articles/using-a-custom-domain-with-github-pages/">https://help.github.com/articles/using-a-custom-domain-with-github-pages/</a></p>
+
+<h4 id="你也可以为账号下任意项目创建独立的项目页面">你也可以为账号下任意项目创建独立的项目页面</h4>
+
+<p>任何一个项目的 Repo，都可以开启这个项目的 GitHub Pages。开启方式同个人主页。</p>
+
+<p>如项目：<a href="https://github.com/crispgm/gsm">crispgm/gsm</a>，设置完成后，就可以通过 <a href="https://crispgm.github.io/gsm/">https://crispgm.github.io/gsm/</a> 进行访问。</p>
+
+<h4 id="你可以通过-sitegithub-获得-repo-的信息">你可以通过 <code class="language-plaintext highlighter-rouge">site.github</code> 获得 Repo 的信息</h4>
+
+<p>由上面所说的 <a href="https://github.com/jekyll/github-metadata">github-metadata</a> 提供服务，通过 GitHub API 获取 Repo 的信息。当然，在本地环境下，也可以通过手动安装 github-metadata 来使用。</p>
+
+<h4 id="私有-repo-也可以开启-github-pages">私有 Repo 也可以开启 GitHub Pages</h4>
+
+<p>GitHub 的付费用户建立的私有项目 Private Repo，也可以开启 GitHub Pages。</p>
+
+<h4 id="github-pages-无法在使用-gh-pages-分支作为源的情况下关闭">GitHub Pages 无法在使用 <code class="language-plaintext highlighter-rouge">gh-pages</code> 分支作为源的情况下关闭</h4>
+
+<p>有些奇怪的设定，真想关闭直接删除掉，在 Source 选择 None 就好。</p>
+
+<h2 id="最后">最后</h2>
+
+<h4 id="本博客也是用-jekyll-生成的">本博客也是用 Jekyll 生成的</h4>
+
+<p>Happy Jekylling!</p>
+:ET

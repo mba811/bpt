@@ -1,0 +1,26 @@
+// Theme of Crisp Blog
+// Copyright (c) David Zhang, 2020
+
+pre,
+code {
+  font-family: $code-font;
+  hyphens: none;
+}
+
+pre.highlight {
+  border: 1px solid $dark-5;
+  border-radius: 4px;
+  font-size: .9rem;
+}
+
+code.hljs {
+  padding: .8rem;
+}
+
+code.highlighter-rouge {
+  border: 1px solid $dark-3;
+  border-radius: 4px;
+  font-size: .9rem;
+  font-weight: bold;
+  padding: .1rem .3rem;
+}

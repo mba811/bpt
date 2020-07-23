@@ -1,0 +1,23 @@
+I"v<p><a href="https://github.com/crispgm/alfred-nord">Alfred Nord</a> is an unofficial port of <a href="http://nordtheme.com/">Nord theme</a> for <a href="https://www.alfredapp.com/">Alfred</a> 3 &amp; 4.</p>
+
+<p>I have been a big fan of Nord theme for years and I have used official Nord themes for everything. e.g., iTerm2, Sublime Text, Visual Studio Code, neovim, tmux, and so on.</p>
+
+<p>Alfred Nord theme is not provided officially, so I made this unofficial port, which follows Nord colors and palettes</p>
+
+<p>Compared to other ports, I chose a smaller icon sizes to make it more neat.</p>
+
+<h3 id="install">Install</h3>
+
+<ul>
+  <li><a href="https://www.alfredapp.com/extras/theme/5Y8E7URIWQ/">https://www.alfredapp.com/extras/theme/5Y8E7URIWQ/</a></li>
+  <li>or manually download <a href="https://github.com/crispgm/alfred-nord/raw/master/Nord.alfredappearance"><code class="language-plaintext highlighter-rouge">Nord.alfredappearance</code></a>.</li>
+</ul>
+
+<p><em>You need the <a href="https://www.alfredapp.com/powerpack/">Powerpack</a> for custom themes.</em></p>
+
+<h3 id="preview">Preview</h3>
+
+<p><img src="http://localhost:4000/image/alfred-nord.jpg" alt="alfred-nord-screenshot" /></p>
+
+<p>Finally, thanks Alfred and <a href="https://github.com/arcticicestudio">Arctic Ice Studio</a> (designer of Nord) for making such good tool and color scheme. And hope you enjoy Alfred Nord.</p>
+:ET

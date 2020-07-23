@@ -1,0 +1,88 @@
+title: Resume | Wanlong Zhang
+name: WANLONG ZHANG
+jobtitle: Senior Software Engineer
+contact:
+  - icon: fa-envelope
+    text: crispgm@gmail.com
+  - icon: fa-phone-square
+    text: (+86) 15652998660
+  - icon: fa-globe
+    text: crispgm.com
+  - icon: fa-github
+    text: crispgm
+education:
+  - university: Queensland University of Technology
+    duration: Jul 2011 - Dec 2012
+    location: Brisbane, QLD, Australia
+    major: Master of Information Technology - Software Architecture.
+  - university: Southeast University
+    duration: Aug 2007 - Jun 2011
+    location: Nanjing, Jiangsu Province, China
+    major: Bachelor of Computer Science & Technology.
+skills:
+  - title: Backends
+    items: Go, Python, Django, Flask, Ruby, Nginx, MySQL, Memcache, Redis, Ruby on Rails, PHP
+  - title: Frontends
+    items: HTML, CSS/Sass, JavaScript/TypeScript, React, Vue.js
+  - title: Architectures
+    items: Micro-service Architecture, Distributing Web Systems
+  - title: Computer Systems
+    items: CI/CD, Design Patterns, Linux, Shell, awk, git, vim
+experience:
+  - title: Senior Software Engineer
+    duration: Sep 2017 - present
+    company: ByteDance Inc.
+    description: >
+      <div>
+      I work on Dongchedi (DCar), a comprehensive app about automobiles.
+      </div>
+      <br>
+      <div>
+      - Searching system
+      </div>
+      <div>
+      - Infrastructure of web engineering
+      </div>
+  - title: Senior Software Engineer
+    duration: Mar 2017 - Aug 2017
+    company: Baidu Inc., News Feed
+    description: >
+      I built platform for content auditing and operations.
+  - title: Senior Software Engineer
+    duration: Apr 2016 - Feb 2017
+    company: Baidu Inc., MSBU
+    description: >
+      I was the lead of infrastructure team, implementing micro-service architecture and reconstructing development model.
+      I built search product with React-Native on mobile platforms.
+  - title: Software Engineer/Senior Software Engineer
+    duration: Apr 2013 - Mar 2016
+    company: Baidu Inc., Tieba
+    description: >
+      <div>
+      I started my career in Baidu as software engineer and later senior software engineer for Tieba Division (tieba.baidu.com), which is one of the largest online forums in China.
+      I built products with continued growth of visits (1b PVs) at first.
+      </div>
+      <br>
+      <div>
+      Then, I took over the architecture work for enterprise business, on both backend and testing.
+      I am highly experienced in building and optimizing large scale distributing LAMP applications.
+      </div>
+      <br>
+      <div>
+      <b>Notable projects</b>: Parallelized optimization for Tieba, Tieba BigPipe, Online Test Platform, and Tieba-Specific Ad System.
+      </div>
+projects:
+  - name: Jekyll
+    description: Jekyll is a blog-aware, static site generator in Ruby.
+    contribution: Contributor
+  - name: Rugby News Board
+    description: "#1 rugby news feed in China."
+    contribution: Creator
+  - name: jekyll-crisp-resume
+    description: A minimalist resume template for Jekyll. This resume itself uses it, after all. :)
+    contribution: Creator
+languages:
+  - name: English
+    proficiency: Work proficiency
+  - name: Mandarin Chinese
+    proficiency: Native

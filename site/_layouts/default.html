@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  {% include head.html %}
+  <body>
+    <div class="header" id="header">
+      <div class="wrapper">
+        {% include header.html %}
+      </div>
+    </div>
+    <div class="wrapper">
+      <div class="content" id="main-content">
+        <div class="content-wrapper">
+          {{ content }}
+        </div>
+      </div>
+    </div>
+    {% include footer.html %}
+    {% include syntax_highlight.html %}
+    {% include disqus.html %}
+    {% include google_analytics.html %}
+  </body>
+</html>

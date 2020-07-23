@@ -1,0 +1,47 @@
+# Site settings
+title: David Zhang
+author: David Zhang
+description: "Home page and blog of David Zhang (@crispgm), a minimalist programmer, photographer, and lifehacker."
+url: "https://crispgm.com"
+alt_url:
+  - "https://crisp.dev"
+encoding: utf-8
+markdown: kramdown
+assets: /assets
+
+collections:
+  docs:
+    output: true
+
+defaults:
+  - scope:
+      path: ""
+      type: docs
+    values:
+      layout: page
+      syntax_highlight: false
+
+# Contacts
+contact:
+  email: crispgm@gmail.com
+  github: crispgm
+  instagram: crispgm
+  twitter: crispgm
+  stack_overflow: 6858150/david-zhang
+
+# Applications
+ga:
+  tracking_id: UA-50708664-1
+disqus:
+  short_name: crispgm
+
+# Inclusion
+include:
+  - _redirects
+
+# Exclusion
+exclude:
+  - Rakefile
+  - Gemfile
+  - Gemfile.lock
+  - assets/fonts/selection.json

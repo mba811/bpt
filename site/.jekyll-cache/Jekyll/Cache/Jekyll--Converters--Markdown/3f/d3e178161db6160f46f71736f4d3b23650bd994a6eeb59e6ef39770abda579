@@ -1,0 +1,108 @@
+I"�<p>最近，在 GitHub 上贡献代码时，常常是在本地提交 <code class="language-plaintext highlighter-rouge">git commit</code> 很多次后才发起 PR。亦或是在发起 PR 后，又因为功能、自动化测试、代码风格等原因，进行了几次修复性质的 commits。</p>
+
+<p>当维护者完成 Code Review 之后，往往就会提出类似这样的要求：</p>
+
+<ul>
+  <li>
+    <p><em>LGTM after a quick rebase!</em></p>
+  </li>
+  <li>
+    <p><em>Can you squash the git commits, otherwise LGTM.</em></p>
+  </li>
+</ul>
+
+<p>这是维护者要求提交者使用 <code class="language-plaintext highlighter-rouge">git rebase</code> 将自己的所有提交合并成一条。</p>
+
+<h1 id="什么是-git-rebase">什么是 git-rebase</h1>
+
+<p><a href="https://git-scm.com/docs/git-rebase">git-rebase</a> 的定义是：</p>
+
+<blockquote>
+  <p>git-rebase - Reapply commits on top of another base tip</p>
+</blockquote>
+
+<p>rebase 的官方中文翻译是“衍合”，意思是在另一个起点上重新应用提交。深入的具体用法可以参考 <a href="https://git-scm.com/book/zh/v1/Git-%E5%88%86%E6%94%AF-%E5%88%86%E6%94%AF%E7%9A%84%E8%A1%8D%E5%90%88">Git 官方文档</a>。</p>
+
+<p>对于当前的应用场景，rebase 的意义是把提交合成一个，这样对于你提交的一个功能，只会有一个提交记录，便于维护者管理。</p>
+
+<h1 id="如何操作">如何操作？</h1>
+
+<h2 id="设置editor">设置Editor</h2>
+
+<p>首先，要确定是 Terminal 的 <code class="language-plaintext highlighter-rouge">EDITOR</code>。我选择设定为 vim。</p>
+
+<p>修改 <code class="language-plaintext highlighter-rouge">~/.zshrc</code>（非 zsh 用户可以用 <code class="language-plaintext highlighter-rouge">~/.bashrc</code>），加入：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>export EDITOR='vim'
+</code></pre></div></div>
+
+<h2 id="执行-rebase">执行 rebase</h2>
+
+<p>先数一数你提交过的数量，比如之前提交了5次：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git rebase -i HEAD~5
+</code></pre></div></div>
+
+<p>Git 会调起 vim，提示让你处理 commits：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pick f3e7c2e Add RIO medal count bot
+pick 316f48a Add weekly template
+pick 23c5c47 Move require to third party libs within implementations
+pick 64cad0b Test coverage 100% for test/command
+pick 030f64a Graceful require
+
+# Rebase 2dfc82e..030f64a onto 2dfc82e (5 command(s))
+#
+# Commands:
+# p, pick = use commit
+# r, reword = use commit, but edit the commit message
+# e, edit = use commit, but stop for amending
+# s, squash = use commit, but meld into previous commit
+# f, fixup = like "squash", but discard this commit's log message
+# x, exec = run command (the rest of the line) using shell
+# d, drop = remove commit
+#
+# These lines can be re-ordered; they are executed from top to bottom.
+#
+# If you remove a line here THAT COMMIT WILL BE LOST.
+#
+# However, if you remove everything, the rebase will be aborted.
+#
+# Note that empty commits are commented out 
+</code></pre></div></div>
+
+<h2 id="处理提交">处理提交</h2>
+
+<p>按 <code class="language-plaintext highlighter-rouge">i</code> 进入编辑模式，常用的操作有</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>p: 选取
+r: 变更提交信息
+s: 将提交信息合并到上一个提交中
+</code></pre></div></div>
+
+<p>最早的一条提交是必须保留的，可以选取或者变更提交信息，但不能选择合并。对于后面几条则可以进行合并。</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pick f3e7c2e Add RIO medal count bot
+s 316f48a Add weekly template
+s 23c5c47 Move require to third party libs within implementations
+s 64cad0b Test coverage 100% for test/command
+s 030f64a Graceful require
+</code></pre></div></div>
+
+<blockquote>
+  <p>注：用 r 修改提交信息时，不需要在这个里面改，直接保存退出 vim 会弹出专门的修改信息文件。</p>
+</blockquote>
+
+<p><code class="language-plaintext highlighter-rouge">wq</code> 保存后，会进入合并信息页面，再次保存后完成 rebase。</p>
+
+<h2 id="push">Push</h2>
+
+<p>进行完 rebase 后，直接执行 <code class="language-plaintext highlighter-rouge">git push origin your-branch-name</code> 会失败，这时千万不要按照提示进行 <code class="language-plaintext highlighter-rouge">git pull</code>，否则会触发 merge。</p>
+
+<p>直接使用 <code class="language-plaintext highlighter-rouge">-f</code> 参数进行强制 push：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git push -f origin your-branch-name
+</code></pre></div></div>
+
+<p>完成 push 后，GitHub 的 PR 中，几条提交就会被合并到了同一条中。</p>
+:ET
